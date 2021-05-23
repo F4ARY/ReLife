@@ -1,5 +1,5 @@
 # ReLife
-##Traccia
+## Traccia
 
 La società ReLife vuole sviluppare un social network implementando una soluzione che permetta la verifica
 di ogni account eliminando così il rischio di account fake, anonimi o di iscrizioni da parte di minorenni.
