@@ -4,17 +4,14 @@ include_once("utility/db_connect.php");
 session_start();
 
 if(isset($_SESSION['id'])){
-   header("location: index.php");
-   exit();
+    header("location: index.php");
+    exit();
 }
 
 if(isset($_GET['errore'])){
     switch ($_GET['errore']){
         case '0':
-            $messaggio = "Email o Password errati";
-            break;
-        case '1':
-            $messaggio = "Account non verificato";
+            $messaggio = "ID inesistente";
             break;
         default:
             $messaggio = "Errore nel login";
@@ -23,15 +20,13 @@ if(isset($_GET['errore'])){
 }
 
 if(isset($_POST['login'])){
-    $pass_hash = sha1($_POST['password']);
-    $email = $_POST['email'];
-    $riga = $conn->query("SELECT * FROM re_utenti WHERE email = '$email' AND password_hash = '$pass_hash'")->fetch_assoc();
+    $idDipendente = $_POST['id_dipendente'];
+    $riga = $conn->query("SELECT * FROM `re_dipendenti` WHERE id_dipendente = $idDipendente")->fetch_assoc();
 
-    if(!isset($riga)) header("location: login.php?errore=0");
-    else if($riga['confermato'] == 0) header("location: login.php?errore=1");
+    if(!isset($riga)) header("location: admin.php?errore=0");
     else{
-        $_SESSION['id'] = $riga['id_utente'];
-        header("location: index.php");
+        $_SESSION['id_dipendente'] = $riga['id_dipendente'];
+        header("location: dashboard.php");
     }
 }
 
@@ -42,7 +37,7 @@ if(isset($_POST['login'])){
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Login Dipendente</title>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
 
     <style>
@@ -257,19 +252,14 @@ if(isset($_POST['login'])){
 
 <body>
 <div class="login-container">
-    <form action="login.php" class="form-login" id="formlogin" method="post">
+    <form action="admin.php" class="form-login" id="formlogin" method="post">
         <ul class="login-nav">
             <li class="login-nav__item active">
-                <a href="login.php">Login</a>
-            </li>
-            <li class="login-nav__item">
-                <a href="registrazione.php">Registrati</a>
+                <a href="admin.php">Login dipendenti</a>
             </li>
         </ul>
-        <label for="login-input-user" class="login__label">Email</label>
-        <input id="login-input-user" class="login__input" type="email" name="email"/>
-        <label for="login-input-password" class="login__label">Password</label>
-        <input id="login-input-password" class="login__input" type="password" name="password"/>
+        <label for="login-input-user" class="login__label">ID dipendente</label>
+        <input id="login-input-user" class="login__input" type="number" name="id_dipendente"/>
 
         <input type="hidden" name="login" value="1">
 
@@ -281,8 +271,7 @@ if(isset($_POST['login'])){
                   </div>';
         }
         ?>
-        <br><br>
-        <span style="margin-left: 10%; color: #c2c2c2">Sei un dipendete? Fai l'accesso <a style="color: rgb(17, 97, 237); text-decoration: none; font-weight: 900" href="admin.php">qui</a></span>
+
     </form>
     <a class="login__forgot">&copy; George Patrut, 2021 </a>
 </div>

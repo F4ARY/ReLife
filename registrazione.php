@@ -29,7 +29,7 @@ if(isset($_POST['registrazione'])){
     $imgProfilo = addslashes(file_get_contents($_FILES['profilo']['tmp_name']));
     $imgDocumento = addslashes(file_get_contents($_FILES['documento']['tmp_name']));
 
-    $query = "INSERT INTO `re_utenti` (email, nome, cognome, username, password_hash, confermato, admin, foto_profilo, documento) VALUES ('$email', '$nome', '$cognome', '$username', '$password', 0, 0, '$imgProfilo', '$imgDocumento')";
+    $query = "INSERT INTO `re_utenti` (email, nome, cognome, username, password_hash, confermato,  foto_profilo, documento) VALUES ('$email', '$nome', '$cognome', '$username', '$password', 0, '$imgProfilo', '$imgDocumento')";
 
     if(!$conn->query($query)){
         header("location: registrazione.php?errore=1");
