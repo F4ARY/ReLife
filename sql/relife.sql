@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 24, 2021 alle 22:07
--- Versione del server: 10.4.14-MariaDB
--- Versione PHP: 7.4.10
+-- Creato il: Mag 26, 2021 alle 13:07
+-- Versione del server: 10.4.19-MariaDB
+-- Versione PHP: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,9 +43,17 @@ CREATE TABLE `re_commenti` (
 CREATE TABLE `re_dipendenti` (
   `id_dipendente` int(11) NOT NULL,
   `nome` varchar(25) NOT NULL,
-  `cognome` int(25) NOT NULL,
+  `cognome` varchar(25) NOT NULL,
   `data_nascita` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `re_dipendenti`
+--
+
+INSERT INTO `re_dipendenti` (`id_dipendente`, `nome`, `cognome`, `data_nascita`) VALUES
+(1, 'Mario', 'Rossi', '2001-05-10'),
+(2, 'Piero', 'Bianchi', '2021-05-14');
 
 -- --------------------------------------------------------
 
@@ -103,6 +111,13 @@ CREATE TABLE `re_verifiche` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dump dei dati per la tabella `re_verifiche`
+--
+
+INSERT INTO `re_verifiche` (`id_verifica`, `data_verifica`, `esito`, `id_utente`, `id_dipendente`) VALUES
+(1, '0000-00-00', 0, 1, 1);
+
+--
 -- Indici per le tabelle scaricate
 --
 
@@ -156,13 +171,13 @@ ALTER TABLE `re_commenti`
 -- AUTO_INCREMENT per la tabella `re_dipendenti`
 --
 ALTER TABLE `re_dipendenti`
-  MODIFY `id_dipendente` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_dipendente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `re_foto`
 --
 ALTER TABLE `re_foto`
-  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `re_utenti`
@@ -174,7 +189,7 @@ ALTER TABLE `re_utenti`
 -- AUTO_INCREMENT per la tabella `re_verifiche`
 --
 ALTER TABLE `re_verifiche`
-  MODIFY `id_verifica` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_verifica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Limiti per le tabelle scaricate
