@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 27, 2021 alle 02:23
+-- Creato il: Mag 27, 2021 alle 23:00
 -- Versione del server: 10.4.14-MariaDB
 -- Versione PHP: 7.4.10
 
@@ -30,9 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `re_commenti` (
   `id_commento` int(11) NOT NULL,
   `data` date NOT NULL,
+  `commento` varchar(300) NOT NULL,
   `id_utente` int(11) DEFAULT NULL,
   `id_foto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `re_commenti`
+--
+
+INSERT INTO `re_commenti` (`id_commento`, `data`, `commento`, `id_utente`, `id_foto`) VALUES
+(1, '2021-05-27', 'Bel gatto', 8, 5),
+(2, '2021-05-27', 'Hai proprio ragione', 1, 5),
+(3, '2021-05-27', 'Che bel paesaggio', 1, 6),
+(4, '2021-05-27', 'gf', 1, 7);
 
 -- --------------------------------------------------------
 
@@ -63,12 +74,19 @@ INSERT INTO `re_dipendenti` (`id_dipendente`, `nome`, `cognome`, `data_nascita`)
 
 CREATE TABLE `re_foto` (
   `id_foto` int(11) NOT NULL,
-  `data_caricamento` text NOT NULL,
-  `_like` int(11) NOT NULL,
-  `_dislike` int(11) NOT NULL,
+  `data_caricamento` date NOT NULL,
   `file_name` text NOT NULL,
   `id_utente` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `re_foto`
+--
+
+INSERT INTO `re_foto` (`id_foto`, `data_caricamento`, `file_name`, `id_utente`) VALUES
+(5, '2021-05-27', 'gatto.jpg3541.jpg', 1),
+(6, '2021-05-27', 'DSCN0010.jpg6621.jpg', 8),
+(7, '2021-05-27', 'id.jpg5486.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -179,7 +197,7 @@ ALTER TABLE `re_verifiche`
 -- AUTO_INCREMENT per la tabella `re_commenti`
 --
 ALTER TABLE `re_commenti`
-  MODIFY `id_commento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_commento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT per la tabella `re_dipendenti`
@@ -191,7 +209,7 @@ ALTER TABLE `re_dipendenti`
 -- AUTO_INCREMENT per la tabella `re_foto`
 --
 ALTER TABLE `re_foto`
-  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la tabella `re_utenti`
