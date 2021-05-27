@@ -1,32 +1,17 @@
 <?php
-
 include_once("utility/db_connect.php");
 session_start();
 
-if(!isset($_SESSION['id_dipendente'])){
-    header("location: login.php");
-    exit();
-}
+$query = "SELECT COUNT(id_verifica) AS numero_verifiche FROM re_verifiche WHERE id_dipendente = " . $_SESSION['id_dipendente'];
 
-if(isset($_POST['conferma'])){
-    $idUtente = $_POST['idUtente'];
-    $query = "UPDATE `re_utenti` SET `confermato` = '1' WHERE `re_utenti`.`id_utente` = $idUtente";
+$riga = $conn->query($query)->fetch_assoc();
 
-    $conn->query($query);
-}
-
-if(isset($_POST['rifiuta'])){
-    $idUtente = $_POST['idUtente'];
-    $query = "DELETE FROM `re_utenti` WHERE `re_utenti`.`id_utente` = $idUtente";
-
-    $conn->query($query);
-}
-
+$nVerifiche = $riga['numero_verifiche'];
 ?>
+
 <html>
 
 <head>
-    <title>Dashboard Dipendente</title>
     <style>
         @charset "UTF-8";
         @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
@@ -64,6 +49,14 @@ if(isset($_POST['rifiuta'])){
             text-decoration: none;
         }
 
+        .blue {
+            color: #185875;
+        }
+
+        .yellow {
+            color: #FFF842;
+        }
+
         .container th h1 {
             font-weight: bold;
             font-size: 1em;
@@ -92,6 +85,7 @@ if(isset($_POST['rifiuta'])){
         .container th {
             padding-bottom: 2%;
             padding-top: 2%;
+            padding-left: 2%;
             text-align: center;
         }
 
@@ -172,58 +166,52 @@ if(isset($_POST['rifiuta'])){
 
 <body>
 
-<h1>Tabella Utenti</h1>
-<h2>Hai fatto l'accesso con l'ID: <b><?php echo $_SESSION['id_dipendente']?></b> | <a href="logout.php"><b>Logout</b></a> | <a href="verifiche.php"><b>Verifiche Dipendenti</b></a></h2>
+<h1>Tabella Verifiche</h1>
+<h2>Il dipendente ha eseguito <?php echo $nVerifiche?> verifiche | <a href="logout.php">Logout</a></h2>
 
-<table class = "container">
+<table class="container">
     <thead>
     <tr>
         <th>
-            <h1>Nome</h1>
+            <h1>ID Verifica</h1>
         </th>
         <th>
-            <h1>Cognome</h1>
+            <h1>Data</h1>
         </th>
         <th>
-            <h1>Email</h1>
+            <h1>ID Utente</h1>
         </th>
         <th>
-            <h1>Username</h1>
-        </th>
-        <th>
-            <h1>Documento</h1>
-        </th>
-        <th>
-            <h1>Azione</h1>
+            <h1>Esito</h1>
         </th>
     </tr>
     </thead>
-    <tbody
+    <tbody>
     <?php
-
-    $query = "SELECT * FROM re_utenti WHERE confermato = 0";
+    $query = "SELECT * FROM re_verifiche WHERE id_dipendente = " . $_SESSION['id_dipendente'];
     $ris = $conn->query($query);
 
     while ($riga = $ris->fetch_assoc()){
-        $idUt = $riga['id_utente'];
-        $email = $riga['email'];
-        $nome = $riga['nome'];
-        $cognome = $riga['cognome'];
-        $username = $riga['username'];
+
+        switch ($riga['esito']){
+            case "1":
+                $esito = "Positivo";
+                break;
+            case "2":
+                $esito = "Negativo";
+                break;
+            case "3":
+                $esito = "Da rivedere";
+                break;
+            default:
+                $esito = "Non disponibile";
+        }
 
         echo '<tr>
-        <td>' . $nome . '</td>
-        <td>' . $cognome . '</td>
-        <td>' . $email . '</td>
-        <td>' . $username . '</td>
-        <td><a style="display: table; margin: 0 auto;" href="visualizzaImmagine.php?id=' . $idUt . '"><img src="visualizzaImmagine.php?id=' . $idUt . '" style="height: 100px;"></a></td>
-        <td>
-            <form style="display: table; margin: 0 auto;" action="dashboard.php" method="post">
-                <input type="hidden" name="idUtente" value="' . $idUt . '">
-                <input type="submit" value="✓" name="conferma" class="accetta">
-                <input type="submit" value="✖" name="rifiuta" class="rifiuta">
-            </form>
-        </td>
+        <td>' . $riga['id_verifica'] . '</td>
+        <td>' . $riga['data_verifica'] . '</td>
+        <td>' . $riga['id_utente'] . '</td>
+        <td>' . $esito . '</td>
     </tr>';
     }
     ?>
