@@ -11,7 +11,7 @@ if(isset($_SESSION['id'])){
 if(isset($_GET['errore'])){
     switch ($_GET['errore']){
         case '0':
-            $messaggio = "ID inesistente";
+            $messaggio = "ID o password errati";
             break;
         default:
             $messaggio = "Errore nel login";
@@ -21,7 +21,9 @@ if(isset($_GET['errore'])){
 
 if(isset($_POST['login'])){
     $idDipendente = $_POST['id_dipendente'];
-    $riga = $conn->query("SELECT * FROM `re_dipendenti` WHERE id_dipendente = $idDipendente")->fetch_assoc();
+    $password = $_POST['password'];
+
+    $riga = $conn->query("SELECT * FROM `re_dipendenti` WHERE id_dipendente = '$idDipendente' AND password_hash = SHA1(CONCAT(SHA1('$password'), salt))")->fetch_assoc();
 
     if(!isset($riga)) header("location: admin.php?errore=0");
     else{
@@ -260,6 +262,8 @@ if(isset($_POST['login'])){
         </ul>
         <label for="login-input-user" class="login__label">ID dipendente</label>
         <input id="login-input-user" class="login__input" type="number" name="id_dipendente"/>
+        <label for="login-input-user" class="login__label">Password</label>
+        <input id="login-input-user" class="login__input" type="password" name="password"/>
 
         <input type="hidden" name="login" value="1">
 

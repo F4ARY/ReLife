@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 29, 2021 alle 19:48
+-- Creato il: Mag 29, 2021 alle 20:28
 -- Versione del server: 10.4.14-MariaDB
 -- Versione PHP: 7.4.10
 
@@ -53,6 +53,8 @@ CREATE TABLE `re_dipendenti` (
   `id_dipendente` int(11) NOT NULL,
   `nome` varchar(25) NOT NULL,
   `cognome` varchar(25) NOT NULL,
+  `password_hash` varchar(64) NOT NULL,
+  `salt` varchar(64) NOT NULL,
   `data_nascita` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -60,9 +62,9 @@ CREATE TABLE `re_dipendenti` (
 -- Dump dei dati per la tabella `re_dipendenti`
 --
 
-INSERT INTO `re_dipendenti` (`id_dipendente`, `nome`, `cognome`, `data_nascita`) VALUES
-(1, 'Mario', 'Rossi', '2001-05-10'),
-(2, 'Piero', 'Bianchi', '2021-05-14');
+INSERT INTO `re_dipendenti` (`id_dipendente`, `nome`, `cognome`, `password_hash`, `salt`, `data_nascita`) VALUES
+(1, 'Mario', 'Rossi', '808ce2314aabb1d4488e162457b839e02b2eee31', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', '2001-05-10'),
+(2, 'Piero', 'Bianchi', '13ed96b1fbaa58a96915c17ff117a3adf8af5b61', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', '1998-05-14');
 
 -- --------------------------------------------------------
 
