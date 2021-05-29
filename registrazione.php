@@ -22,14 +22,15 @@ if(isset($_GET['errore'])){
 if(isset($_POST['registrazione'])){
     $cognome = htmlspecialchars($_POST["cognome"], ENT_QUOTES);
     $nome = htmlspecialchars($_POST["nome"], ENT_QUOTES);
-    $password = sha1($_POST['password']);
+    $salt = sha1(rand());
+    $password = sha1(sha1($_POST['password']) . $salt);
     $email = htmlspecialchars($_POST["email"], ENT_QUOTES);
     $username = htmlspecialchars($_POST['username'], ENT_QUOTES);
 
     $imgProfilo = addslashes(file_get_contents($_FILES['profilo']['tmp_name']));
     $imgDocumento = addslashes(file_get_contents($_FILES['documento']['tmp_name']));
 
-    $query = "INSERT INTO `re_utenti` (email, nome, cognome, username, password_hash, confermato,  foto_profilo, documento) VALUES ('$email', '$nome', '$cognome', '$username', '$password', 0, '$imgProfilo', '$imgDocumento')";
+    $query = "INSERT INTO `re_utenti` (email, nome, cognome, username, password_hash, salt ,confermato,  foto_profilo, documento) VALUES ('$email', '$nome', '$cognome', '$username', '$password', '$salt', 0, '$imgProfilo', '$imgDocumento')";
 
     if(!$conn->query($query)){
         header("location: registrazione.php?errore=1");
@@ -285,19 +286,19 @@ if(isset($_POST['registrazione'])){
             </li>
         </ul>
         <label for="login-input-user" class="login__label">Nome</label>
-        <input id="login-input-user" class="login__input" type="text" name="nome"/>
+        <input id="login-input-user" class="login__input" type="text" name="nome" required/>
         <label for="login-input-user" class="login__label">Cognome</label>
-        <input id="login-input-user" class="login__input" type="text" name="cognome" />
+        <input id="login-input-user" class="login__input" type="text" name="cognome" required/>
         <label for="login-input-user" class="login__label">Username</label>
-        <input id="login-input-user" class="login__input" type="text" name="username" />
+        <input id="login-input-user" class="login__input" type="text" name="username" required/>
         <label for="login-input-user" class="login__label">Email</label>
-        <input id="login-input-user" class="login__input" type="email" name="email"/>
+        <input id="login-input-user" class="login__input" type="email" name="email" required/>
         <label for="login-input-password" class="login__label">Password</label>
-        <input id="login-input-password" class="login__input" type="password" name="password" />
+        <input id="login-input-password" class="login__input" type="password" name="password" required/>
         <label for="login-input-password" class="login__label">Immagine profilo</label>
-        <input id="login-input-password" class="login__input" type="file" name="profilo" />
+        <input id="login-input-password" class="login__input" type="file" name="profilo" accept="image/jpeg, image/png" required/>
         <label for="login-input-password" class="login__label">Immagine di un documento</label>
-        <input id="login-input-password" class="login__input" type="file" name="documento"/>
+        <input id="login-input-password" class="login__input" type="file" name="documento" accept="image/jpeg, image/png" required/>
 
 
         <input type="hidden" name="registrazione" value="1">

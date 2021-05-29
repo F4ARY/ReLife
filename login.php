@@ -23,9 +23,11 @@ if(isset($_GET['errore'])){
 }
 
 if(isset($_POST['login'])){
-    $pass_hash = sha1($_POST['password']);
+    $pass = $_POST['password'];
     $email = $_POST['email'];
-    $riga = $conn->query("SELECT * FROM re_utenti WHERE email = '$email' AND password_hash = '$pass_hash'")->fetch_assoc();
+    $ris = $conn->query("SELECT * FROM re_utenti WHERE email = '$email' AND password_hash = SHA1(CONCAT(SHA1('$pass'), salt))");
+
+    $riga = $ris->fetch_assoc();
 
     if(!isset($riga)) header("location: login.php?errore=0");
     else if($riga['confermato'] == 0) header("location: login.php?errore=1");
