@@ -7,26 +7,11 @@ if(!isset($_SESSION['id_dipendente'])){
     header("location: login.php");
     exit();
 }
-
-if(isset($_POST['conferma'])){
-    $idUtente = $_POST['idUtente'];
-    $query = "UPDATE `re_utenti` SET `confermato` = '1' WHERE `re_utenti`.`id_utente` = $idUtente";
-
-    $conn->query($query);
-}
-
-if(isset($_POST['rifiuta'])){
-    $idUtente = $_POST['idUtente'];
-    $query = "DELETE FROM `re_utenti` WHERE `re_utenti`.`id_utente` = $idUtente";
-
-    $conn->query($query);
-}
-
 ?>
 <html>
 
 <head>
-    <title>Dashboard Dipendente</title>
+    <title>Utenti inattivi</title>
     <style>
         @charset "UTF-8";
         @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
@@ -172,8 +157,9 @@ if(isset($_POST['rifiuta'])){
 
 <body>
 
-<h1>Tabella Utenti</h1>
-<h2>Hai fatto l'accesso con l'ID: <b><?php echo $_SESSION['id_dipendente']?></b> | <a href="logout.php"><b>Logout</b></a> | <a href="verifiche.php"><b>Verifiche Dipendenti</b></a> | <a href="utenti_inattivi.php"><b>Utenti inattivi</b></a></h2>
+<h1>Tabella utenti inattivi</h1>
+<h2>Questi utenti non hanno mai caricato immagini</h2>
+<h2>Hai fatto l'accesso con l'ID: <b><?php echo $_SESSION['id_dipendente']?></b> | <a href="logout.php"><b>Logout</b></a> | <a href="verifiche.php"><b>Verifiche Dipendenti</b></a></h2>
 
 <table class = "container">
     <thead>
@@ -190,22 +176,15 @@ if(isset($_POST['rifiuta'])){
         <th>
             <h1>Username</h1>
         </th>
-        <th>
-            <h1>Documento</h1>
-        </th>
-        <th>
-            <h1>Azione</h1>
-        </th>
     </tr>
     </thead>
     <tbody
     <?php
 
-    $query = "SELECT * FROM re_utenti WHERE confermato = 0";
+    $query = "SELECT * FROM re_utenti LEFT JOIN re_foto ON re_utenti.id_utente = re_foto.id_utente where re_foto.id_utente IS NULL";
     $ris = $conn->query($query);
 
     while ($riga = $ris->fetch_assoc()){
-        $idUt = $riga['id_utente'];
         $email = $riga['email'];
         $nome = $riga['nome'];
         $cognome = $riga['cognome'];
@@ -216,14 +195,6 @@ if(isset($_POST['rifiuta'])){
         <td>' . $cognome . '</td>
         <td>' . $email . '</td>
         <td>' . $username . '</td>
-        <td><a style="display: table; margin: 0 auto;" href="visualizzaImmagine.php?id=' . $idUt . '"><img src="visualizzaImmagine.php?id=' . $idUt . '" style="height: 100px;"></a></td>
-        <td>
-            <form style="display: table; margin: 0 auto;" action="dashboard.php" method="post">
-                <input type="hidden" name="idUtente" value="' . $idUt . '">
-                <input type="submit" value="✓" name="conferma" class="accetta">
-                <input type="submit" value="✖" name="rifiuta" class="rifiuta">
-            </form>
-        </td>
     </tr>';
     }
     ?>

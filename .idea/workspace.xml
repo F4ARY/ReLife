@@ -24,12 +24,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sql" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\georg\Desktop\ReLife\sql" />
       <recent name="C:\Users\georg\Desktop\ReLife" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -53,7 +54,8 @@
       <workItem from="1622294537394" duration="823000" />
       <workItem from="1622297241314" duration="222000" />
       <workItem from="1622298043143" duration="621000" />
-      <workItem from="1622310030401" duration="1316000" />
+      <workItem from="1622310030401" duration="2013000" />
+      <workItem from="1622388466340" duration="1040000" />
     </task>
     <servers />
   </component>
