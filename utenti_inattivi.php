@@ -181,7 +181,7 @@ if(!isset($_SESSION['id_dipendente'])){
     <tbody
     <?php
 
-    $query = "SELECT * FROM re_utenti LEFT JOIN re_foto ON re_utenti.id_utente = re_foto.id_utente where re_foto.id_utente IS NULL";
+    $query = "SELECT * FROM re_utenti LEFT JOIN re_foto ON re_utenti.id_utente = re_foto.id_utente where re_foto.id_utente IS NULL AND confermato = 1";
     $ris = $conn->query($query);
 
     while ($riga = $ris->fetch_assoc()){
