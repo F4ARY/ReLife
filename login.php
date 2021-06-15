@@ -284,7 +284,7 @@ if(isset($_POST['login'])){
         }
         ?>
         <br><br>
-        <span style="margin-left: 10%; color: #c2c2c2">Sei un dipendete? Fai l'accesso <a style="color: rgb(17, 97, 237); text-decoration: none; font-weight: 900" href="admin.php">qui</a></span>
+        <span style="margin-left: 10%; color: #c2c2c2">Sei un dipendente? Fai l'accesso <a style="color: rgb(17, 97, 237); text-decoration: none; font-weight: 900" href="admin.php">qui</a></span>
     </form>
     <a class="login__forgot">&copy; George Patrut, 2021 </a>
 </div>

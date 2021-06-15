@@ -24,7 +24,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sql" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -57,6 +57,8 @@
       <workItem from="1622310030401" duration="2013000" />
       <workItem from="1622388466340" duration="3428000" />
       <workItem from="1622406628238" duration="1706000" />
+      <workItem from="1623683053594" duration="1403000" />
+      <workItem from="1623770725048" duration="647000" />
     </task>
     <servers />
   </component>
